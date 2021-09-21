@@ -1,0 +1,38 @@
+---
+- name: Configure filebeat download bs
+  hosts: webservers
+  remote_user: sysadmin
+  become: true
+  tasks:
+      # Use command module
+    - name: download the .deb file
+      command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.1-amd64.deb
+
+      # Use command module
+    - name: install the .deb file
+      command: sudo dpkg -i filebeat-7.6.1-amd64.deb
+
+      # Copy file from ansible to correct folder
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: /etc/ansible/files/filebeat-config.yml
+        dest: /etc/filebeat/filebeat.yml
+        mode: '0755'
+
+      # Use command module
+    - name: enable filebeat system
+      command: filebeat modules enable system
+
+      # Use command module
+    - name: setup filebeat
+      command: filebeat setup
+
+      # Use command module
+    - name: start filebeat service
+      command: service filebeat start
+
+      # Use systemd module
+    - name: Enable filebeat service on boot
+      systemd:
+        name: filebeat
+        enabled: yes
