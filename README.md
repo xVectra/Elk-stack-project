@@ -2,7 +2,8 @@
 
 The files in this repository were used to configure the network depicted below.
 
-Diagrams/diagram_filename.png
+![image](Diagrams/diagram_filename.png)
+
 
 
 
@@ -77,7 +78,7 @@ The playbook implements the following tasks:
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-Diagrams/docker_ps_output.png
+![image](Diagrams/docker_ps_output.png)
 
 
 ### Target Machines & Beats
